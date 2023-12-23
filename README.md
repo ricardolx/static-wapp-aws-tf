@@ -36,10 +36,22 @@ if you don't have jq installed already
 
 Assume role and map env vars
 
-`eval $(aws sts assume-role --role-arn arn:aws:iam::064399416193:role/OrganizationAccountAccessRole --role-session-name trfrm | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)"')`
+role arn will look like: arn:aws:iam::999999999999:role/OrgAccountAccessRole
+
+`eval $(aws sts assume-role --role-arn {rolearn} --role-session-name trfrm | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)"')`
 
 run terraform
 
 `terraform plan`
 
 `terraform apply`
+
+tear it all down 
+
+`terraform destroy`
+
+##### useful aws cli commands
+
+view user/role session info: `aws sts get-caller-identity`
+
+remove role session: `unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN`
