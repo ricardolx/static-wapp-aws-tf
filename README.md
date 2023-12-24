@@ -8,7 +8,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
 
 1. [Front end](#front-end-webapp)
 2. [Terraform](#terraform)
-3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
+   1. [Useful AWS CLI Commands](#useful-aws-cli-commands)
 
 ## Front End Webapp
 
