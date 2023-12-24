@@ -8,7 +8,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
 
 1. [Front end](#front-end-webapp)
 2. [Terraform](#terraform)
-   1. [Mac](#mac)
+3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
 
 ## Front End Webapp
 
@@ -38,44 +38,58 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Terraform
 
-### Mac
-
 #### Assume role -> environment variables
 
 In order to execute terraform, the user/machine must assume a role with the AWS CLI. In order to assume a role, you must be authenticated with AWS CLI:
 
-run `aws configure`
+run  
+
+    aws configure
 
 Enter your access key and secret access key. You can run `aws sts get-caller-identity` to see that it worked
 
-##### Assume role and map env vars
+#### Assume Role and Map Env Vars
+
+Replace {rolearn} with the role arn - it will look like: arn:aws:iam::999999999999:role/OrgAccountAccessRole
+
+##### Mac
 
 If you don't have jq installed already:
 
-`brew install jq`
+    brew install jq
+    
+Then assume with:
 
-Replace {rolearn} with the role arn - itwill look like: arn:aws:iam::999999999999:role/OrgAccountAccessRole
+    eval $(aws sts assume-role --role-arn {rolearn} --role-session-name trfrm | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)"')
 
-###### Assume Role Command: 
+##### Windows
 
-`eval $(aws sts assume-role --role-arn {rolearn} --role-session-name trfrm | jq -r '.Credentials | "export AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey)\nexport AWS_SESSION_TOKEN=\(.SessionToken)"')`
+    $credentials = aws sts assume-role --role-arn {rolearn} --role-session-name trfrm | ConvertFrom-Json
 
-This will map the role access keys and token to your encvironment variables. Now run `aws sts get-caller-identity` again to see that you are authenticated as the role. 
+    [Environment]::SetEnvironmentVariable("AWS_ACCESS_KEY_ID", $credentials.Credentials.AccessKeyId, [System.EnvironmentVariableTarget]::Process)
+    [Environment]::SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", $credentials.Credentials.SecretAccessKey, [System.EnvironmentVariableTarget]::Process)
+    [Environment]::SetEnvironmentVariable("AWS_SESSION_TOKEN", $credentials.Credentials.SessionToken, [System.EnvironmentVariableTarget]::Process)`
 
-Note: in your config, you are still configured in as your user, but the CLI will use the token that was just set to authenticate as the role. Once the role token expires, you will get authentication errors until the token is removed. You can unset the environment variables to interact with the CLI as your user and run the [assume role](#assume-role-command) command if needed
+This will map the role access keys and token to your environment variables. Now run `aws sts get-caller-identity` again to see that you are authenticated as the role. 
+
+Note: in your CLI config, you are still configured in as your user. With the keys and tokens set, the CLI will use the session token to authenticate as the role. Once the role token expires, you will get authentication errors until the token is removed. You can [unset the environment variables](#remove-role-session) to interact with the CLI as your user and run the [assume role](#assume-role-and-map-env-vars) command to re-assume the role if needed
 
 ##### run terraform
 
-`terraform plan`
+    terraform plan
 
-`terraform apply`
+    terraform apply
 
 ##### tear it all down 
 
-`terraform destroy`
+    terraform destroy
 
-##### useful aws cli commands
+#### useful aws cli commands
 
-view user/role session info: `aws sts get-caller-identity`
+##### view user/role session info: 
 
-remove role session: `unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN`
+    aws sts get-caller-identity
+
+##### remove role session:  
+
+    unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
