@@ -6,7 +6,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
 
 [Skip to table of contents](#table-of-contents)
 
-![Veil](https://github.com/ricardolx/veil/assets/37557051/0152b5ff-9bea-4722-aa37-548b53df0507)
+![Veil](https://github.com/ricardolx/veil/assets/37557051/38e55dcf-f351-478a-97da-b2bebee2797e)
 
 ### Table of Contents
 
