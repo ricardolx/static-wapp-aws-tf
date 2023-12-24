@@ -1,4 +1,4 @@
-# Veil
+# Veil Architecture
 
 The Veil Nebula is a cloud of heated and ionized red and blue gas to appear purple
 
