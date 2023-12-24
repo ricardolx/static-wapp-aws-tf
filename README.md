@@ -4,6 +4,10 @@ The Veil Nebula is a cloud of heated and ionized red and blue gas to appear purp
 
 Veil consists of the front end architecture for a static web app hosted in S3, terraform AWS infrastructure-as-code (IAC), an API gateway backend, and Docker build pipeline
 
+[Skip to table of contents](#table-of-contents)
+
+![Veil](https://github.com/ricardolx/veil/assets/37557051/0152b5ff-9bea-4722-aa37-548b53df0507)
+
 ### Table of Contents
 
 1. [Front end](#front-end-webapp)
