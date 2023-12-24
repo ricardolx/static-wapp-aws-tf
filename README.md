@@ -42,6 +42,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 #### Assume role and set environment variables
 
+##### Authenticate with the CLI
+
 In order to execute terraform, the user/machine must assume a role with the AWS CLI. In order to assume a role, you must be authenticated with AWS CLI:
 
 run  
@@ -50,7 +52,7 @@ run
 
 Enter your access key and secret access key. You can run `aws sts get-caller-identity` to see that it worked
 
-#### Assume Role and Map Env Vars
+##### Assume the role and set variables
 
 Replace {rolearn} with the role arn - it will look like: arn:aws:iam::999999999999:role/OrgAccountAccessRole
 
