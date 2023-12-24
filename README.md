@@ -78,7 +78,7 @@ This will map the role access keys and token to your environment variables. Now 
 
 ##### run terraform
 
-To view the change details: 
+*From the /tf directory,* view the change details: 
 
     terraform plan
     
