@@ -8,7 +8,9 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
 
 1. [Front end](#front-end-webapp)
 2. [Terraform](#terraform)
-   1. [Useful AWS CLI Commands](#useful-aws-cli-commands)
+   1. [Authenticate with the CLI](#assume-role-and-set-environment-variables)
+   2. [Run terraform](#run-terraform)
+   3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
 
 ## Front End Webapp
 
@@ -38,7 +40,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Terraform
 
-#### Assume role -> environment variables
+#### Assume role and set environment variables
 
 In order to execute terraform, the user/machine must assume a role with the AWS CLI. In order to assume a role, you must be authenticated with AWS CLI:
 
@@ -72,11 +74,15 @@ Then assume with:
 
 This will map the role access keys and token to your environment variables. Now run `aws sts get-caller-identity` again to see that you are authenticated as the role. 
 
-Note: in your CLI config, you are still configured in as your user. With the keys and tokens set, the CLI will use the session token to authenticate as the role. Once the role token expires, you will get authentication errors until the token is removed. You can [unset the environment variables](#remove-role-session) to interact with the CLI as your user and run the [assume role](#assume-role-and-map-env-vars) command to re-assume the role if needed
+*Note*: in your CLI config, you are still configured in as your user. With the keys and tokens set, the CLI will use the session token to authenticate as the role. Once the role token expires, you will get authentication errors until the token is removed. You can [unset the environment variables](#remove-role-session) to interact with the CLI as your user and run the [assume role](#assume-role-and-map-env-vars) command to re-assume the role if needed
 
 ##### run terraform
 
+To view the change details: 
+
     terraform plan
+    
+To submit changs:
 
     terraform apply
 
