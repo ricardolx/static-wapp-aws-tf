@@ -1,0 +1,19 @@
+{
+    "name": "lambda-authentication",
+    "version": "1.0.0",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "npm install && npm run zip",
+        "zip": "zip -r lambda-authentication.zip index.js node_modules"
+    },
+    "dependencies": {
+        "@aws-sdk/client-secrets-manager": "^3.480.0",
+        "install": "^0.13.0",
+        "jsonwebtoken": "^9.0.2",
+        "npm": "^10.2.5",
+        "typescipt": "^1.0.0"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.5"
+    }
+}
