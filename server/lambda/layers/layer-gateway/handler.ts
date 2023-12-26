@@ -1,4 +1,4 @@
-import { validateTokenClaims, validateToken } from '../common';
+import { validateToken } from '../common';
 
 exports.handler = async (event: any) => {
   const { token } = event;
