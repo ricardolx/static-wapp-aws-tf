@@ -47,7 +47,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 #### Lambda
 
-##### Node v20.10.0
+`Node v20.10.0`
 
 Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token.
 
