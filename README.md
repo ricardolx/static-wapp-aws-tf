@@ -11,7 +11,8 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
 ### Table of Contents
 
 1. [Front end](#front-end-webapp)
-2. [Terraform](#terraform)
+2. [Back end](#back-end)
+3. [Terraform](#terraform)
    1. [Authenticate with the CLI](#assume-role-and-set-environment-variables)
    2. [Run terraform](#run-terraform)
    3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
@@ -41,6 +42,17 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 #### Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Back end
+
+#### Lambda
+
+Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token.
+
+1. If the secret is available, validate the token
+2. If the secret is not available, call the authentication service at /connect/introspect
+
+For the Gateway authentication, lambda will also check the token claims to ensure they are authorized to access the resource
 
 ## Terraform
 
