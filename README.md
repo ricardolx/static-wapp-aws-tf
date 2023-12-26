@@ -46,17 +46,35 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Back end
 
+### Authorization 
+
 #### Lambda
 
 `Node v20.10.0`
 
-[Lambda Authorizer](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html) performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token:
+[Lambda Authorizer](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html) performs authentication for the API gateway and CloudFront with Lambda@Edge. 
+
+##### Common 
+
+There are two methods with which lambda can perform validation of the token:
 
 1. If the secret is available, validate the token
 2. If the secret is not available: call the back-end authentication api which issued the token
    1. for Identity Server: validate with `/connect/introspect`
 
-For the Gateway authentication, lambda will also check the token claims to ensure they are authorized to access the resource
+#### Authorization@Edge
+
+See [Authorization@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/authorizationedge-how-to-use-lambdaedge-and-json-web-tokens-to-enhance-web-application-security/)
+
+For the CloudFront authentication, lambda will also check the token claims to ensure they are authorized to access the resource. 
+
+CloudFront expects a request. If the authentication and authorization succeeds, the request should be returned unmodified. If it fails, the response can be a request modified with a redirect such as an error page, or login page.
+
+#### API Gateway Lambda authorizor 
+
+See [Gateway Authorizor](#https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html)
+
+If authentication succeeds, API Gateway expects a callback with a policy to access the underlying resource
 
 ## Terraform
 

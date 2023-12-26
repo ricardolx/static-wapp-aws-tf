@@ -1,8 +1,20 @@
 import { SecretsManager } from '@aws-sdk/client-secrets-manager';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { CloudFrontRequestHandler, CloudFrontHeaders } from 'aws-lambda';
+import {
+  CloudFrontRequestHandler,
+  CloudFrontHeaders,
+  Callback,
+  APIGatewayEvent,
+  Context,
+} from 'aws-lambda';
 
-export { CloudFrontRequestHandler, CloudFrontHeaders };
+export {
+  CloudFrontRequestHandler,
+  CloudFrontHeaders,
+  Callback,
+  APIGatewayEvent,
+  Context,
+};
 
 let SecretsManagerClient = new SecretsManager({
   region: 'aws-region',
