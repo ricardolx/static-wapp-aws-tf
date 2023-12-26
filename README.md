@@ -119,4 +119,12 @@ To submit changs:
 
 ##### remove role session:  
 
+mac
+
     unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+
+windows
+
+    Remove-Item Env:AWS_ACCESS_KEY_ID
+    Remove-Item Env:AWS_SECRET_ACCESS_KEY
+    Remove-Item Env:AWS_SESSION_TOKEN
