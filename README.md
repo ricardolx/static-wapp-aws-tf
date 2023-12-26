@@ -135,7 +135,7 @@ windows
 Deploy steps to be executed in the following order
 
 1. Build lambda .zip
-2. Build front end production app
+2. Build front-end production app static files
 3. Run terraform to diff and provision services, and deploy lambda
-4. Copy production front end app to s3
-5. Invalidate cloudfront cached files
+4. Copy static production front end app to s3
+5. Invalidate cached CloudFront files
