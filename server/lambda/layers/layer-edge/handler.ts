@@ -1,8 +1,8 @@
-import { validateTokenClaims, validateTokenSignature } from '../common';
+import { validateTokenClaims, validateToken } from '../common';
 
 exports.handler = async (event: any) => {
   const { token, resource } = event;
-  const validSignature = await validateTokenSignature(token);
+  const validSignature = await validateToken(token);
   if (validSignature) {
     const validClaims = await validateTokenClaims(token, resource);
     if (validClaims) {

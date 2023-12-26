@@ -5,7 +5,12 @@ let SecretsManagerClient = new SecretsManager({
   region: 'aws-region',
 });
 
-export const validateTokenSignature = async (
+/**
+ * Validate the token signature and expiration date
+ * @param token the jwt token to validate
+ * @returns 
+ */
+export const validateToken = async (
   token: string
 ): Promise<boolean> => {
   // 1. Check secrets manager
@@ -45,6 +50,12 @@ export const validateTokenSignature = async (
   return false;
 };
 
+/**
+ *  Validate the token claims grant access to the resource
+ * @param token the jwt token to validate 
+ * @param resource the resource to be accessed
+ * @returns 
+ */
 export const validateTokenClaims = async (token: string, resource: string) => {
   const claims = jwt.decode(token) as JwtPayload;
   const someClaim = claims[''];
