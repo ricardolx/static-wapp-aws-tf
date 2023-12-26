@@ -16,6 +16,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
    1. [Authenticate with the CLI](#assume-role-and-set-environment-variables)
    2. [Run terraform](#run-terraform)
    3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
+4. [Deploy Steps](#deploy)
 
 ## Front End Webapp
 
@@ -128,3 +129,13 @@ windows
     Remove-Item Env:AWS_ACCESS_KEY_ID
     Remove-Item Env:AWS_SECRET_ACCESS_KEY
     Remove-Item Env:AWS_SESSION_TOKEN
+
+## Deploy
+
+Deploy steps to be executed in the following order
+
+1. Build lambda .zip
+2. Build front end production app
+3. Run terraform to diff and provision services, and deploy lambda
+4. Copy production front end app to s3
+5. Invalidate cloudfront cached files
