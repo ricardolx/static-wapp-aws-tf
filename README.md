@@ -16,6 +16,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
    1. [Authenticate with the CLI](#assume-role-and-set-environment-variables)
    2. [Run terraform](#run-terraform)
    3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
+4. [Deploy Steps](#deploy)
 
 ## Front End Webapp
 
@@ -49,7 +50,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 `Node v20.10.0`
 
-Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token:
+[Lambda Authorizer](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-use-lambda-authorizer.html) performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token:
 
 1. If the secret is available, validate the token
 2. If the secret is not available: call the back-end authentication api which issued the token
@@ -128,3 +129,13 @@ windows
     Remove-Item Env:AWS_ACCESS_KEY_ID
     Remove-Item Env:AWS_SECRET_ACCESS_KEY
     Remove-Item Env:AWS_SESSION_TOKEN
+
+## Deploy
+
+Deploy steps to be executed in the following order
+
+1. Build lambda .zip
+2. Build front-end production app static files
+3. Run terraform to diff and provision services, and deploy lambda
+4. Copy static production front end app to s3
+5. Invalidate cached CloudFront files
