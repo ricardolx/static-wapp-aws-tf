@@ -49,7 +49,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 `Node v20.10.0`
 
-Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token.
+Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token:
 
 1. If the secret is available, validate the token
 2. If the secret is not available: call the back-end authentication api
