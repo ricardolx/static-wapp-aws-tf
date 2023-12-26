@@ -51,7 +51,7 @@ Lambda performs authentication for the API gateway and CloudFront with Lambda@Ed
 
 1. If the secret is available, validate the token
 2. If the secret is not available: call the back-end authentication api
-   1. for Identity Server: validate with /connect/introspect
+   1. for Identity Server: validate with `/connect/introspect`
 
 For the Gateway authentication, lambda will also check the token claims to ensure they are authorized to access the resource
 
