@@ -50,7 +50,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Lambda performs authentication for the API gateway and CloudFront with Lambda@Edge. There are two methods with which lambda can perform validation of the token.
 
 1. If the secret is available, validate the token
-2. If the secret is not available, call the authentication service at /connect/introspect
+2. If the secret is not available
+   a. for Identity Server: call the authentication service at /connect/introspect
 
 For the Gateway authentication, lambda will also check the token claims to ensure they are authorized to access the resource
 
