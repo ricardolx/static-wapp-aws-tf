@@ -153,7 +153,16 @@ windows
 Deploy steps to be executed in the following order
 
 1. Build lambda .zip
-2. Build front-end production app static files
-3. Run terraform to diff and provision services, and deploy lambda
-4. Copy static production front end app to s3
-5. Invalidate cached CloudFront files
+2. Docker
+     1. Build front-end production app static files
+     2. Run unit tests
+     3. Run component tests
+4. Run terraform to diff and provision services, and deploy lambda
+5. Copy static production front end app to s3
+6. Run CloudFront/WAF terraform
+7. Invalidate cached CloudFront files
+8. Run Integration Tests in develop
+9. Run E2E smoke tests in develop
+10. Deploy to QA
+11. Invalidate CloudFront cache
+12. Run smoke test in QA
