@@ -78,6 +78,9 @@ If authentication succeeds, API Gateway expects a callback with a policy to acce
 
 ## Terraform
 
+[Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+[Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+
 #### Assume role and set environment variables
 
 ##### Authenticate with the CLI
