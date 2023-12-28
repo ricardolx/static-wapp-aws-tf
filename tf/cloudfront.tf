@@ -11,9 +11,15 @@ resource "aws_waf_web_acl" "waf_acl" {
 
 # CloudFront distribution with WAF
 resource "aws_cloudfront_distribution" "webapp_distribution" {
-  origin {
-    domain_name = aws_lb.webapp_lb.dns_name
-    origin_id   = aws_lb.webapp_lb.arn
+   origin {
+    domain_name = aws_s3_bucket.website_bucket.website_endpoint
+    origin_id   = aws_s3_bucket.website_bucket.arn
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
   }
 
   enabled             = true
