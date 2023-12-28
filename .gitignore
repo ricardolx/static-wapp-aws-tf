@@ -41,10 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
-tf/.terraform/
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfstate
 .terraform.lock.hcl
+.tf/.terraform/
 
-server/lambda/layers/node_modules
+lambda/layers/node_modules

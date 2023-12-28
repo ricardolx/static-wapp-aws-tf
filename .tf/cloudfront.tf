@@ -35,6 +35,12 @@ resource "aws_cloudfront_distribution" "webapp_distribution" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = aws_lb.webapp_lb.arn
 
+    lambda_function_association {
+      event_type   = "viewer-request"
+      lambda_arn   = auth_stack.sam_stack.outputs["AuthEdgeLambdaArn"]
+      include_body = false
+    }
+
     forwarded_values {
       query_string = false
 

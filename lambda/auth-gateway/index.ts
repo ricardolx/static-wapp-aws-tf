@@ -30,20 +30,19 @@ export const handler = async (
 };
 
 const generatePolicy = (
-  principal: string,
+  principalId: string,
   effect: string,
   resource: string
 ) => {
   const authResponse = {
-    principalId: 'user',
+    principalId,
     policyDocument: {
       Version: '2012-10-17',
       Statement: [
         {
           Action: 'execute-api:Invoke',
-          Effect: 'Allow',
-          Resource:
-            `arn:aws:execute-api:region:account-id:api-id/stage/method/${resource}`,
+          Effect: effect,
+          Resource: `arn:aws:execute-api:region:account-id:api-id/stage/method/${resource}`,
         },
       ],
     },
