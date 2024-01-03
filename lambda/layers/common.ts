@@ -45,9 +45,9 @@ export const validateToken = async (token: string): Promise<boolean> => {
       console.log(err);
     }
   } else {
-    // 2. Call auth service
+    // 2. Call authentication service
     try {
-      const valid = await fetch(process.env['AUTH_URL'] + '/validate', {
+      const valid = await fetch(process.env['AUTH_GATEWAY'] + '/connect/introspect', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
