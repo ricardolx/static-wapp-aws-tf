@@ -8,11 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "docker-build": "docker build -t static-web-app -f .docker/Dockerfile .",
-    "docker-copy": "docker cp webapp-container:/app/dist ./dist",
+    "docker-copy": "docker run --name webapp-container --platform=linux/amd64 static-web-app && docker cp webapp-container:/app/dist ./dist && docker cp <container_id>:/app/dist/<your-app-name> ",
     "docker": "npm run docker-build && npm run docker-copy",
     "tf-s3": "terraform apply -target=aws_s3_bucket.bucket -target=aws_s3_bucket_versioning.bucket_versioning -target=aws_s3_bucket_website_configuration.webapp_bucket",
-    "predeploy": "npm run docker",
-    "deploy": "terraform apply"
+    "predeploy": "npm run tf-s3",
+    "deploy": "npm run docker && terraform apply"
   },
   "private": true,
   "dependencies": {

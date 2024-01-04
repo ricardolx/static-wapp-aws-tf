@@ -37,4 +37,4 @@ COPY --chown=node:node . .
 
 # Run tests
 RUN npm run test -- --no-watch --browsers ChromeHeadlessCI
-RUN npm run build --prod 
+RUN npm run build -- --prod 
