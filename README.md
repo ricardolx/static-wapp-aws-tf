@@ -17,6 +17,7 @@ Veil consists of the front end architecture for a static web app hosted in S3, t
    2. [Run terraform](#run-terraform)
    3. [Useful AWS CLI Commands](#useful-aws-cli-commands)
 4. [Deploy Steps](#deploy)
+   1. [Docker](#docker)
 
 ## Front End Webapp
 
@@ -35,6 +36,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 #### Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+##### Karma
+
+To run headless browser for unit tests, chrome uses CHROME_BIN environment variable, set to location of your chrome executable
 
 #### Running end-to-end tests
 
@@ -153,6 +158,15 @@ windows
     Remove-Item Env:AWS_SESSION_TOKEN
 
 ## Deploy
+
+### Docker
+
+[Install Docker](https://docs.docker.com/get-docker/)
+
+To build and deploy 
+
+    docker build -t my-angular-app
+    docker cp <container_id>:/app/dist/<your-app-name> .
 
 Deploy steps to be executed in the following order
 

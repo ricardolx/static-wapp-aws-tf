@@ -6,7 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docker-build": "docker build -t static-web-app -f .docker/Dockerfile .",
+    "docker-copy": "docker cp webapp-container:/app/dist ./dist",
+    "docker": "npm run docker-build && npm run docker-copy",
+    "tf-s3": "terraform apply -target=aws_s3_bucket.bucket -target=aws_s3_bucket_versioning.bucket_versioning -target=aws_s3_bucket_website_configuration.webapp_bucket",
+    "predeploy": "npm run docker",
+    "deploy": "terraform apply"
   },
   "private": true,
   "dependencies": {
@@ -29,7 +35,7 @@
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
+    "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",

@@ -1,12 +1,40 @@
-# Stage 1: Build the Angular app
-FROM node:16 as build
+# Stage 1: Build the Angular app and run unit tests
+
+# CIRCLECI browsers image includes installs for web browser testing
+# https://circleci.com/developer/images/image/cimg/node
+# https://hub.docker.com/r/cimg/node/tags
+FROM --platform=linux/amd64 cimg/node:20.10.0-browsers as build
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm install
-COPY . .
-RUN npm run build --prod
 
-# Stage 2: Serve the app using Nginx
-FROM nginx:1.19.2-alpine
-COPY --from=build /app/dist/<your-app-name> /usr/share/nginx/html
-COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+#### Install Google Chrome ####
+# Install dependencies
+RUN sudo apt-get update && sudo apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  gnupg \
+  --no-install-recommends
+# Add Google's public key
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+# Add Google's stable repository
+RUN echo "deb https://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google.list
+# Install Google Chrome
+RUN sudo apt-get update && sudo apt-get install -y \
+  google-chrome-stable \
+  --no-install-recommends
+# Clean up
+RUN sudo rm -rf /var/lib/apt/lists/*
+
+# Change ownership of /app directory to node user
+USER root
+RUN groupadd -r node && useradd -r -g node -m node
+RUN chown -R node:node /app
+USER node
+
+RUN npm install
+COPY --chown=node:node . .
+
+# Run tests
+RUN npm run test -- --no-watch --browsers ChromeHeadlessCI
+RUN npm run build --prod 
